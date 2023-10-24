@@ -35,7 +35,6 @@ echo -e "Одна ошибка\nИ ты ощибся\n" > 14.txt
 
 ### 5 ###
 
-make clean
 FOLDERS=3
 
 for (( i=1; i <= $FOLDERS; i++ ))
@@ -45,6 +44,10 @@ done
 
 for (( i=1; i <= $FOLDERS; i++ ))
 do
+    if [ -d "$i" ]; then
+	rm -r $i
+    fi
+    
     WAY='./'
     for (( j=1; j <= i; j++ ))
     do
@@ -52,6 +55,5 @@ do
     WAY+=$i/
     done
     ln -rs $i.txt $WAY$i.txt
-    echo "$WAY"
 done
 
