@@ -2,12 +2,8 @@
 
 ### 1 ###
 
-NUM=20
-ALLNUM=''
+read -p "Введите то, сколько папок должно быть создано: " NUM
 for (( i=1; i <= $NUM; i++ ))
 do
-ALLNUM+=$i" "
->$i.txt
+    >$i.txt
 done
-
-
