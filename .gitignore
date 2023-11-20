@@ -3,3 +3,4 @@
 **.out
 .emacs*
 **.emacs*
+**/build/*
