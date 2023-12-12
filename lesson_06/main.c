@@ -5,7 +5,7 @@ struct MyTable {
   char surename[64];
   unsigned long long record_book_number;
   char faculty_name[16];
-  char study_group_name[16]
+  char study_group_name[16];
 };
 
 void InputToTable(struct MyTable table) {
