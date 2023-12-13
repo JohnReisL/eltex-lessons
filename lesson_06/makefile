@@ -1,11 +1,12 @@
 .PHONY: clean all run
 
+FINAL_FILE_NAME=execute
 
 all:
-	gcc main.c -o main
+	gcc my_list.c main.c -o $(FINAL_FILE_NAME)
 
 run: all
-	./main
+	./$(FINAL_FILE_NAME)
 
 clean:
-	rm -rfv *~ *.out main
+	rm -rfv *~ *.out  $(FINAL_FILE_NAME)
