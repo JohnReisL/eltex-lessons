@@ -5,7 +5,7 @@ int main() {
   struct MyTable tmp;
   InputToTable(&tmp);
 
-  
-  //printf("%d\n", sizeof(tmp.p_stud_list));
+ 
+  MyTableDestructor(&tmp);
   return 0;
 }

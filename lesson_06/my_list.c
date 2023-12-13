@@ -72,5 +72,5 @@ void ChangeLine(struct MyTable *table, unsigned line_number) {
 }
 
 void MyTableDestructor(struct MyTable *table) {
-  
+  free(table->p_stud_list);
 }
