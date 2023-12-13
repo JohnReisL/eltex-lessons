@@ -12,7 +12,8 @@ struct StudentInfo{
 };
 
 struct MyTable {
-  struct StudentInfo *p_stud_list[0];
+  struct StudentInfo *p_stud_list;
+  ull counter;
 };
 
 void InputToTable(struct MyTable *table);
@@ -32,6 +33,8 @@ void FindByValue(struct MyTable *table,
 void DeleteLine(struct MyTable *table, unsigned line_number);
 
 void ChangeLine(struct MyTable *table, unsigned line_number);
+
+void Prepare(struct MyTable *table);
 
 void MyTableDestructor(struct MyTable *table);
 
