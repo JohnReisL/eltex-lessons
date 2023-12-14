@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "my_list.h"
+#include "../include/my_list.h"
 
 #define SHOW_TASK 1
 #define TASK "Определить структурированный тип и набор функций\
