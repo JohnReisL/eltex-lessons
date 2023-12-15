@@ -1,12 +1,50 @@
 .PHONY: clean all run
 
-FINAL_FILE_NAME=execute
+PRJNAME=task
 
-all:
-	gcc my_list.c main.c -o $(FINAL_FILE_NAME)
+##########
 
-run: all
-	./$(FINAL_FILE_NAME)
+COMPILER=gcc
+
+CFLAGS=-ggdb3 #-Wall -pedantic
+
+CINCLUDES=
+
+##########
+
+SRC_PATH=src
+
+OBJ_PATH=obj
+
+BUILD_PATH=build
+
+##########
+
+CFILES=main.c my_list.c
+
+CSRC=$(addprefix $(SRC_PATH)/,$(CFILES))
+
+COBJS=$(addprefix $(OBJ_PATH)/,$(notdir $(CSRC:.c=.o)))
+
+TARGETS=$(BUILD_PATH)/$(PRJNAME)
+
+##########
+
+all: $(TARGETS)
+
+run: $(TARGETS)
+	./$(TARGETS)
+
+
+$(BUILD_PATH)/$(PRJNAME):  $(COBJS)
+	@if [ ! -d $(BUILD_PATH) ]; then mkdir $(BUILD_PATH); fi
+	$(COMPILER)  -o $@ $^
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+	@if [ ! -d $(OBJ_PATH) ]; then mkdir $(OBJ_PATH); fi
+	$(COMPILER) $(CFLAGS) $(CINCLUDES)  -c $< -o $@
 
 clean:
-	rm -rfv *~ *.out  $(FINAL_FILE_NAME)
+	@rm -rfv *~ *.out \#*\# 
+	@rm -rfv */*~ */*.out */\#*\#
+	@rm -rfv $(BUILD_PATH) $(OBJ_PATH)
