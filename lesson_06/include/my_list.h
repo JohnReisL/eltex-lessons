@@ -20,7 +20,7 @@ void InputToTable(struct MyTable *table);
 
 void FromFileToTable(struct MyTable *table, char file_name[]);
 
-void FromTableToFile(char file_name[]);
+void FromTableToFile(struct MyTable *table, char file_name[]);
 
 void PrintTableTable(struct MyTable *table);
 

@@ -89,7 +89,29 @@ void FromFileToTable(struct MyTable *table, char file_name[]) {
   }
 }
 
-void FromTableToFile(char file_name[]) {}
+void FromTableToFile(struct MyTable *table,char file_name[]) {
+  FILE *fp = fopen(file_name, "w");
+  if(fp) {
+    for(int i = 0; i < table->counter; ++i) {
+      char buffer[64];
+      sprintf(buffer, "%llu", table->p_stud_list[i].record_book_number);
+      fputs(table->p_stud_list[i].surename, fp);
+      fputs(",", fp);
+      fputs(buffer, fp);
+      fputs(",", fp);
+      fputs(table->p_stud_list[i].faculty_name, fp);
+      fputs(",", fp);
+      sprintf(buffer, "%llu", table->p_stud_list[i].study_group_number);
+      fputs(buffer, fp);
+      fputs("\n", fp);
+
+    }
+    fclose(fp);
+  } else {
+    printf("Проблемка: файл не может быть записан\n");
+    return;
+  }
+}
 
 void PrintTableTable(struct MyTable *table) {
   for (ull i = 0;

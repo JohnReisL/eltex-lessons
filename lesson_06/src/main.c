@@ -30,7 +30,7 @@ int main() {
 
   FromFileToTable(&tmp, "example.csv");
   
-  /* FromTableToFile(char file_name[]) ; */
+  FromTableToFile(&tmp, "written.csv") ;
 
   /* PrintTableTable(struct MyTable *table); */
 
