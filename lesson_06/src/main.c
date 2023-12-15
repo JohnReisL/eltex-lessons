@@ -16,22 +16,23 @@
 Перечень полей структурированной переменной: Фамилия, номер зачетной книжки, факультет, группа.\n"
 
 int main() {
-  #if SHOW_TASK
+#if SHOW_TASK
   printf("Задача:\n%s\n\n",TASK);
-  #endif
-
+#endif
+  
   printf("Защиты \"от дурака\" нет, значения не проверяются\n");
   printf("Корректность воода данных на плечах вводящего\n");
-
-
+  
+  
   struct MyTable tmp = {0,0};
   Prepare(&tmp); //Обнулить переменные (конструктор)
   
+  InputToTable(&tmp);
+  
+  
 
   
-  InputToTable(&tmp);
-
-  printf("Вывод таблицы:");
+  printf("Вывод таблицы:\n");
   PrintTableTable(&tmp);
   
   MyTableDestructor(&tmp);

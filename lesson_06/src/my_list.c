@@ -24,19 +24,19 @@ void InputToTable(struct MyTable *table) { //TODO закончить запис�
   printf("Начало заполнения информации о студенте\n");
   
   printf("Введите фамилию : " INPUT_LINE);
-  scanf("%s", &buffer);
+  scanf("%s", buffer);
   strcpy(table->p_stud_list[table->counter - 1].surename, buffer);
 
   //table->p_stud_list[table->counter - 1].surename = buffer;
   
   printf("Введите номер зачетки (число) : " INPUT_LINE);
-  scanf("%ull", &tmp);
+  scanf("%llu", &tmp);
 
   printf("Введите название факультета : " INPUT_LINE);
-  scanf("%s", &buffer);
+  scanf("%s", buffer);
 
   printf("Введите номер группы (число) : " INPUT_LINE);
-  scanf("%ull", &tmp);
+  scanf("%llu", &tmp);
   
 }
 
@@ -49,11 +49,10 @@ void FromTableToFile(char file_name[]) {
 }
 
 void PrintTableTable(struct MyTable *table) {
-  printf("\nsize %d\n" , table->counter);
-  for (int i = 0;
+  for (ull i = 0;
        i < (table->counter);
        ++i) {
-    printf("№%d | Фамииля : %s, зачетка : %u, факультет : %s, группа : %u",
+    printf("№%llu | Фамииля : %s, зачетка : %llu, факультет : %s, группа : %llu",
 	   i,
 	   table->p_stud_list[i].surename,
 	   table->p_stud_list[i].record_book_number,

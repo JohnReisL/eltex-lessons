@@ -8,7 +8,7 @@ PRJNAME=task
 
 COMPILER=gcc
 
-CFLAGS=-ggdb3 #-Wall -pedantic
+CFLAGS=-ggdb3 -Wall -pedantic
 
 CINCLUDES=
 
