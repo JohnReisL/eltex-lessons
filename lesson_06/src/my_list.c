@@ -56,11 +56,8 @@ void FromFileToTable(struct MyTable *table, char file_name[]) {
   char word[64];
   FILE *fp = fopen(file_name, "r");
   if(fp) {
-    int zz = 0;
     while((fgets(buffer, sizeof(buffer), fp)) != NULL) {
       GetMemToLine(table); // строка есть, нужна память      
-      printf("%d line if %s\n", zz++, buffer);
-
       for (int i = 0; i < 4; ++i) {
 	for (int j = 0; j < strlen(buffer); ++j) {
 	  if (buffer[j] == ',') {
