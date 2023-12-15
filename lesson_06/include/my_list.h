@@ -18,7 +18,7 @@ struct MyTable {
 
 void InputToTable(struct MyTable *table);
 
-void FromFileToTable(struct MyTable *table);
+void FromFileToTable(struct MyTable *table, char file_name[]);
 
 void FromTableToFile(char file_name[]);
 
@@ -30,13 +30,13 @@ void FindByValue(struct MyTable *table,
 		 unsigned colum_number,
 		 char value[]);
 
-void DeleteLine(struct MyTable *table, unsigned line_number);
+void DeleteLine(struct MyTable *table);
 
-void ChangeLine(struct MyTable *table, unsigned line_number);
+void ChangeLine(struct MyTable *table);
 
 void Prepare(struct MyTable *table);
 
 void MyTableDestructor(struct MyTable *table);
 
 
-#endif
+#endif //MY_LIST

@@ -23,13 +23,26 @@ int main() {
   printf("Защиты \"от дурака\" нет, значения не проверяются\n");
   printf("Корректность воода данных на плечах вводящего\n");
   
-  
   struct MyTable tmp = {0,0};
   Prepare(&tmp); //Обнулить переменные (конструктор)
   
-  InputToTable(&tmp);
+  /* InputToTable(&tmp); */
+
+  FromFileToTable(&tmp, "example.csv");
   
-  
+  /* FromTableToFile(char file_name[]) ; */
+
+  /* PrintTableTable(struct MyTable *table); */
+
+  /* SortByColumn(struct MyTable *table, unsigned colum_number); */
+  /* FindByValue(struct MyTable *table, */
+  /* 	      unsigned colum_number, */
+  /* 	      char value[]); */
+
+  DeleteLine(&tmp);
+
+  ChangeLine(&tmp);
+
 
   
   printf("Вывод таблицы:\n");

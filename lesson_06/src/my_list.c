@@ -16,6 +16,16 @@ static void GetMemToLine(struct MyTable *table) {
   }
 }
 
+static void DelMemLastLine(struct MyTable *table) {
+  if (0 == table->counter) {
+    return;
+  } else {
+    table->p_stud_list =
+      realloc(table->p_stud_list,
+	      --table->counter * sizeof(struct StudentInfo));
+  }
+}
+
 void InputToTable(struct MyTable *table) { //TODO закончить запись
   GetMemToLine(table);
   
@@ -26,33 +36,69 @@ void InputToTable(struct MyTable *table) { //TODO закончить запис�
   printf("Введите фамилию : " INPUT_LINE);
   scanf("%s", buffer);
   strcpy(table->p_stud_list[table->counter - 1].surename, buffer);
-
-  //table->p_stud_list[table->counter - 1].surename = buffer;
-  
+ 
   printf("Введите номер зачетки (число) : " INPUT_LINE);
   scanf("%llu", &tmp);
+  table->p_stud_list[table->counter - 1].record_book_number = tmp;
 
   printf("Введите название факультета : " INPUT_LINE);
   scanf("%s", buffer);
+  strcpy(table->p_stud_list[table->counter - 1].faculty_name, buffer);
 
   printf("Введите номер группы (число) : " INPUT_LINE);
   scanf("%llu", &tmp);
+  table->p_stud_list[table->counter - 1].study_group_number = tmp;
   
 }
 
-void FromFileToTable(struct MyTable *table) {
-  
+void FromFileToTable(struct MyTable *table, char file_name[]) {
+  char buffer[256];
+  char word[64];
+  FILE *fp = fopen(file_name, "r");
+  if(fp) {
+    int zz = 0;
+    while((fgets(buffer, sizeof(buffer), fp)) != NULL) {
+      GetMemToLine(table); // строка есть, нужна память      
+      printf("%d line if %s\n", zz++, buffer);
+
+      for (int i = 0; i < 4; ++i) {
+	for (int j = 0; j < strlen(buffer); ++j) {
+	  if (buffer[j] == ',') {
+	    word[j] = '\0';
+	    strcpy(buffer, &buffer[j] +1);
+	    break;
+	  } else {
+	    word[j] = buffer[j];
+	  }
+	}
+	if(i == 0) {
+	  strcpy(table->p_stud_list[table->counter - 1].surename, word);
+	} else if (i == 1) {
+	  table->p_stud_list[table->counter - 1].record_book_number
+	    = atoi(word);  
+	} else if (i == 2) {
+	  strcpy(table->p_stud_list[table->counter - 1].faculty_name, word);
+	} else if (i == 3) {
+	  table->p_stud_list[table->counter - 1].study_group_number
+	    = atoi(word);
+	}
+      }      //вставляем на место
+    
+    }
+    fclose(fp);
+  } else {
+    printf("Проблемка: файл не был открыт\n");
+    return;
+  }
 }
 
-void FromTableToFile(char file_name[]) {
-  
-}
+void FromTableToFile(char file_name[]) {}
 
 void PrintTableTable(struct MyTable *table) {
   for (ull i = 0;
        i < (table->counter);
        ++i) {
-    printf("№%llu | Фамииля : %s, зачетка : %llu, факультет : %s, группа : %llu",
+    printf("№%llu | Фамииля : %s, зачетка : %llu, факультет : %s, группа : %llu\n",
 	   i,
 	   table->p_stud_list[i].surename,
 	   table->p_stud_list[i].record_book_number,
@@ -61,21 +107,61 @@ void PrintTableTable(struct MyTable *table) {
   }
 }
 
-void SortByColumn(struct MyTable *table, unsigned colum_number) {
 
-}
+void SortByColumn(struct MyTable *table, unsigned colum_number) {}
 
 void FindByValue(struct MyTable *table,
 		 unsigned colum_number,
-		 char value[]) {
+		 char value[]) {}
+
+void DeleteLine(struct MyTable *table) {
+  PrintTableTable(table);
+  ull line_to_delete = -1;
+  printf("Какую строку вы бы хотели удалить(номер слева)?");
+  scanf("%llu", &line_to_delete);
+
+  if (line_to_delete >= table->counter) {
+    printf("3гогг: неверное значение :р\n");
+    return;
+  }
+
+  for (int i = line_to_delete; i < (table->counter - 2); ++i) {
+    table->p_stud_list[i] = table->p_stud_list[i + 1];
+  }
   
+  DelMemLastLine(table);
 }
 
-void DeleteLine(struct MyTable *table, unsigned line_number) {
-  
-}
+void ChangeLine(struct MyTable *table) {
+  PrintTableTable(table);
+  ull line_to_change = -1;
+  printf("Какую строку вы бы хотели изменить(номер слева)?");
+  scanf("%llu", &line_to_change);
 
-void ChangeLine(struct MyTable *table, unsigned line_number) {
+  if (line_to_change >= table->counter) {
+    printf("3гогг: неверное значение :р\n");
+    return;
+  }
+
+  char buffer[sizeof(table->p_stud_list->surename)];
+  ull tmp;
+  printf("Начало заполнения информации о студенте\n");
+  
+  printf("Введите фамилию : " INPUT_LINE);
+  scanf("%s", buffer);
+  strcpy(table->p_stud_list[line_to_change].surename, buffer);
+  
+  printf("Введите номер зачетки (число) : " INPUT_LINE);
+  scanf("%llu", &tmp);
+  table->p_stud_list[line_to_change].record_book_number = tmp;
+  
+  printf("Введите название факультета : " INPUT_LINE);
+  scanf("%s", buffer);
+  strcpy(table->p_stud_list[line_to_change].faculty_name, buffer);
+  
+  printf("Введите номер группы (число) : " INPUT_LINE);
+  scanf("%llu", &tmp);
+  table->p_stud_list[line_to_change].study_group_number = tmp;
   
 }
 
