@@ -1,3 +1,5 @@
+## на данный момент НЕ ОТСЛЕЖИВАЕТ изменение заголовочников \TODO
+
 .PHONY: clean all run
 
 PRJNAME=task
