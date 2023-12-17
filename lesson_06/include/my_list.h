@@ -38,5 +38,6 @@ void Prepare(struct MyTable *table);
 
 void MyTableDestructor(struct MyTable *table);
 
+void FindGroupAndChange(struct MyTable *table, ull group_was, ull group_be);
 
 #endif //MY_LIST
