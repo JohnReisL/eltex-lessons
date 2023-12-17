@@ -32,6 +32,7 @@ int main() {
   
   FromTableToFile(&tmp, "written.csv") ;
 
+  SortByColumn(&tmp, 1);
   /* PrintTableTable(struct MyTable *table); */
 
   /* SortByColumn(struct MyTable *table, unsigned colum_number); */
@@ -42,7 +43,6 @@ int main() {
   DeleteLine(&tmp);
 
   ChangeLine(&tmp);
-
 
   
   printf("Вывод таблицы:\n");

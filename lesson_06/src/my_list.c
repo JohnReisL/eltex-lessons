@@ -26,6 +26,17 @@ static void DelMemLastLine(struct MyTable *table) {
   }
 }
 
+static unsigned SrtingBiggerThen(char const str1[], char const str2[]) {
+  for (unsigned i = 0; (str1[i] != 0) && (str2[i] != 0); ++i) {
+    if(str1[i] > str2[i]) {
+      return 1;
+    } else if (str1[i] < str2[i]) {
+      return 0;
+    } 
+  }
+  return 0;
+}
+
 void InputToTable(struct MyTable *table) { //TODO закончить запись
   GetMemToLine(table);
   
@@ -127,11 +138,136 @@ void PrintTableTable(struct MyTable *table) {
 }
 
 
-void SortByColumn(struct MyTable *table, unsigned colum_number) {}
+void SortByColumn(struct MyTable *table, unsigned colum_number) {
+  struct StudentInfo tmp;
+  unsigned noSwap;
+  if (colum_number == 0) { //фамилия
+    for (int i = table->counter - 1; i >= 0; i--) {
+      noSwap = 1;
+      for (int j = 0; j < i; j++) {
+	if (SrtingBiggerThen(table->p_stud_list[j].surename,
+			     table->p_stud_list[j + 1].surename)) {
+	  tmp = table->p_stud_list[j];
+	  table->p_stud_list[j] = table->p_stud_list[j + 1];
+	  table->p_stud_list[j + 1] = tmp;
+	  noSwap = 0;
+	}
+      }
+      if (noSwap == 1)
+	break;
+    }
+    
+  } else if (colum_number == 1) { // зачетка
+    for (int i = table->counter - 1; i >= 0; i--) {
+      noSwap = 1;
+      for (int j = 0; j < i; j++) {
+	if (table->p_stud_list[j].record_book_number >
+	    table->p_stud_list[j + 1].record_book_number) {
+	  tmp = table->p_stud_list[j];
+	  table->p_stud_list[j] = table->p_stud_list[j + 1];
+	  table->p_stud_list[j + 1] = tmp;
+	  noSwap = 0;
+	}
+      }
+      if (noSwap == 1)
+	break;
+    }
+  } else if (colum_number == 2) { // факультет
+    for (int i = table->counter - 1; i >= 0; i--) {
+      noSwap = 1;
+      for (int j = 0; j < i; j++) {
+	if (SrtingBiggerThen(table->p_stud_list[j].faculty_name,
+			     table->p_stud_list[j + 1].faculty_name)) {
+	  tmp = table->p_stud_list[j];
+	  table->p_stud_list[j] = table->p_stud_list[j + 1];
+	  table->p_stud_list[j + 1] = tmp;
+	  noSwap = 0;
+	}
+      }
+      if (noSwap == 1)
+	break;
+    }
+  } else if (colum_number == 3) { // номер учебной группы
+    for (int i = table->counter - 1; i >= 0; i--) {
+      noSwap = 1;
+      for (int j = 0; j < i; j++) {
+	if (table->p_stud_list[j].study_group_number >
+	    table->p_stud_list[j + 1].study_group_number) {
+	  tmp = table->p_stud_list[j];
+	  table->p_stud_list[j] = table->p_stud_list[j + 1];
+	  table->p_stud_list[j + 1] = tmp;
+	  noSwap = 0;
+	}
+      }
+      if (noSwap == 1)
+	break;
+    }
+  } else {
+    printf("Число вне диапазона (доступны 0-3)\n");
+  }
+}
 
 void FindByValue(struct MyTable *table,
 		 unsigned colum_number,
-		 char value[]) {}
+		 char value[]) {
+  char find_str[32];
+  ull find_num;
+  if ((colum_number == 1) || (colum_number == 3)) {
+    strcpy(find_str, value);
+  } else if ((colum_number == 0) || (colum_number == 2)) {
+    find_num = atoi(value);
+  } else {
+    printf("wrong value of column\n\n");
+    return;
+  }
+  
+  unsigned counter = 0;
+  if (colum_number == 0) {
+    for(int i = 0; i < table->counter; ++i) {
+      if (table->p_stud_list[i].surename == find_str) {
+	printf("Фамииля : %s, зачетка : %llu, факультет : %s, группа : %llu\n",
+	       table->p_stud_list[i].surename,
+	       table->p_stud_list[i].record_book_number,
+	       table->p_stud_list[i].faculty_name,
+	       table->p_stud_list[i].study_group_number);
+      }
+    }
+  } else if (colum_number == 1) {
+    for(int i = 0; i < table->counter; ++i) {
+      if (table->p_stud_list[i].record_book_number == find_num) {
+	printf("Фамииля : %s, зачетка : %llu, факультет : %s, группа : %llu\n",
+	       table->p_stud_list[i].surename,
+	       table->p_stud_list[i].record_book_number,
+	       table->p_stud_list[i].faculty_name,
+	       table->p_stud_list[i].study_group_number);
+      }
+    }
+  } else if (colum_number == 2) {
+    for(int i = 0; i < table->counter; ++i) {
+      if (table->p_stud_list[i].faculty_name == find_str) {
+	printf("Фамииля : %s, зачетка : %llu, факультет : %s, группа : %llu\n",
+	       table->p_stud_list[i].surename,
+	       table->p_stud_list[i].record_book_number,
+	       table->p_stud_list[i].faculty_name,
+	       table->p_stud_list[i].study_group_number);
+      }
+    }
+  } else if (colum_number == 3) {
+    for(int i = 0; i < table->counter; ++i) {
+      if (table->p_stud_list[i].study_group_number == find_num) {
+	printf("Фамииля : %s, зачетка : %llu, факультет : %s, группа : %llu\n",
+	       table->p_stud_list[i].surename,
+	       table->p_stud_list[i].record_book_number,
+	       table->p_stud_list[i].faculty_name,
+	       table->p_stud_list[i].study_group_number);
+      }
+    }
+  }
+
+  if (!counter) {
+    printf("Не было найдено таких значений\n");
+  }
+}
 
 void DeleteLine(struct MyTable *table) {
   PrintTableTable(table);
@@ -188,7 +324,6 @@ void Prepare(struct MyTable *table) {
   table->p_stud_list = 0;
   table->counter = 0;
 }
-
 
 void MyTableDestructor(struct MyTable *table) {
   free(table->p_stud_list);
