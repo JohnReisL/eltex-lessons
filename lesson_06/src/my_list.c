@@ -328,3 +328,11 @@ void Prepare(struct MyTable *table) {
 void MyTableDestructor(struct MyTable *table) {
   free(table->p_stud_list);
 }
+
+void FindGroupAndChange(struct MyTable *table, ull group_was, ull group_be) {
+    for(int i = 0; i < table->counter; ++i) {
+      if (table->p_stud_list[i].record_book_number == group_was) {
+	table->p_stud_list[i].record_book_number = group_be;
+      }
+    }
+}
