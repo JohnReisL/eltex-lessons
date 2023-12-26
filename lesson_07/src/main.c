@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define SHOW_TASK 1
+#define SHOW_TASK 0
 #define TASK "Реализация собственной функции cat\n"
 
 int main(int argc, char *argv[]) {
@@ -36,10 +36,16 @@ int main(int argc, char *argv[]) {
     if (fp) {
       while (scanf("%s", buf) != EOF) {
 	fprintf(fp,"%s\n", buf);
-      } 
+      }
       
       fclose(fp);
     }
+  } else if (argc == 1) { //Весело плюем текст абы куда
+    char buf[BUFSIZ];
+    while (scanf("%s", buf) != EOF) {
+      fprintf(stdout,"%s\n", buf);
+    } 
+    
   }
   
   return 0;
