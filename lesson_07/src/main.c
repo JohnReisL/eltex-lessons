@@ -25,19 +25,21 @@ int main(int argc, char *argv[]) {
       printf("%s", buf);
     }
     fclose(fp);
-  } else if (argc == 1) { //пишем в файл
-    /* if ((strlen(argv[1]) != 1) || (*argv[1] != '>')) { */
-    /*   perror("Проблемка\nВторой аргумент может быть только >\n"); */
-    /*   return -2; */
-    /* } //если не вылетело, то прекрасно, работаем */
+  } else if (argc == 3) { //пишем в файл
+    if (strcmp(argv[1], "--w")) {
+      perror("Проблемка\nВторой аргумент может быть только --w\n");
+      return -2;
+    } //если не вылетело, то прекрасно, работаем
 
-    //FILE *fp = fopen(argv[2], "w");
-    /* char buf[BUFSIZ]; */
-    /* do { */
-    /* scanf("%s", buf); */
-    /* printf("%s", buf); */
-    /* } while (buf[0] != 0); */
-    //fclose(fp);
+    FILE *fp = fopen(argv[2], "w");
+    char buf[BUFSIZ];
+    if (fp) {
+      while (scanf("%s", buf) != EOF) {
+	fprintf(fp,"%s\n", buf);
+      } 
+      
+      fclose(fp);
+    }
   }
   
   return 0;
