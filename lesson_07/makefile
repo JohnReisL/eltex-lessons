@@ -2,7 +2,7 @@
 
 .PHONY: clean all run
 
-PRJNAME=task
+PRJNAME=mycat
 
 ##########
 
