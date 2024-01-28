@@ -87,11 +87,24 @@ int main() {
   /* Печатаем новые значения счетчиков, удаляем 
      разделяемую память из адресного пространства 
      текущего процесса и завершаем работу */
-  printf("Program 1 was spawn %d times,program 2 - %d times, total - %d times\n", array[0], array[1], array[2]);
+  printf("Program 1 was spawn %d times,program 2 - %d times, total - %d times\n"
+	 , array[0], array[1], array[2]);
   if (shmdt(array) < 0) { 
     printf("Can't detach shared memory\n");
     exit(-1);
   }
+
+
+  // В теории всё решается в пару строк, \TODO возможно нужно оформить иначе.
+  printf("Сбросить значение (1 - да, 0 - нет)\n");
+  int unser;
+  scanf("%d", &unser);
+  
+  if (unser) {
+    struct shmid_ds buf;
+    shmctl(shmid, IPC_RMID, &buf);
+  }
+  
   
   return 0;
 }
