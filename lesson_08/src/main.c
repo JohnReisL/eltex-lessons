@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#define SHOW_TASK 1
+#define SHOW_TASK 0
 #define TASK "Используя доп материалы к лекции 3, напишите скрипт, который\
  удаляет выделенную область разделяемой памяти, используемый в sys1, sys2.\n"
 
