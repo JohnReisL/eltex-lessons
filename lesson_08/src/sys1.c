@@ -4,12 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-int main()
-{
+int main() {
     int *array;    /* Указатель на разделяемую память */
     int shmid;     /* IPC дескриптор для области разделяемой памяти */
     int new = 1;   /* Флаг необходимости инициализации элементов массива */
-    char pathname[] = "sys1.c"; /* Имя файла, 
+    char pathname[] = "./README.md"; /* Имя файла, 
         используемое для генерации ключа. Файл с таким 
         именем должен существовать в текущей директории */
     key_t key;     /* IPC ключ */
@@ -17,11 +16,11 @@ int main()
     /* Генерируем IPC ключ из имени файла sys1.c в 
         текущей директории и номера экземпляра области 
         разделяемой памяти 0 */
-    if((key = ftok(pathname,1)) < 0){
+    if((key = ftok(pathname,0)) < 0){
         printf("Can\'t generate key\n");
         exit(-1);
     }
-    if((key_2 = ftok(pathname, 2)) < 0){
+    if((key_2 = ftok(pathname, 1)) < 0){
         printf("Can\'t generate key with same\n");
         exit(-1);
     }
