@@ -22,13 +22,15 @@ BUILD_PATH=build
 
 ##########
 
-CFILES=main.c
+CFILES=main.c \
+	sys1.c \
+	sys2.c
 
 CSRC=$(addprefix $(SRC_PATH)/,$(CFILES))
 
 COBJS=$(addprefix $(OBJ_PATH)/,$(notdir $(CSRC:.c=.o)))
 
-TARGETS=$(BUILD_PATH)/$(PRJNAME)
+TARGETS=$(addprefix $(BUILD_PATH)/,$(notdir $(CSRC:.c=)))
 
 ##########
 
@@ -38,7 +40,7 @@ run: $(TARGETS)
 	./$(TARGETS)
 
 
-$(BUILD_PATH)/$(PRJNAME):  $(COBJS)
+$(BUILD_PATH)/%:  $(OBJ_PATH)/%.o
 	@if [ ! -d $(BUILD_PATH) ]; then mkdir $(BUILD_PATH); fi
 	$(COMPILER)  -o $@ $^
 
