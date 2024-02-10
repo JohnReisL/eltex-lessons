@@ -1,17 +1,29 @@
 #include <signal.h>
 #include <stdio.h>
-/* Функция my_handler – пользовательский 
-   обработчик сигнала */ 
-void my_handler(int nsig){ 
+
+void (*p)(int);
+
+void my_handler (int nsig) {
+  static int i = 0; // Не знаю зачем была глобально, тут логичнее
+
+  switch (nsig) {
+  case SIGINT:
     printf("Receive signal %d, CTRL-C pressed\n", nsig);
+    break;
+  case SIGQUIT:
+    printf("Receive signal %d, CTRL-Z pressed\n", nsig); 
+    i = i+1;
+    if(i == 5) (void)signal(SIGQUIT, p);
+    break;
+  default:
+    printf("[JRL] Unknown signal\n");
+  }
+  
 }
-int main(void){ 
-    /* Выставляем реакцию процесса на 
-       сигнал SIGINT */ 
-    (void)signal(SIGINT, my_handler);
-    /*Начиная с этого места, процесс будет 
-      печатать сообщение о возникновении 
-      сигнала SIGINT */ 
-    while(1);
-    return 0;
+
+int main (void) { 
+  (void)signal(SIGINT, my_handler);
+  (void)signal(SIGQUIT, my_handler);
+  while(1);
+  return 0;
 }
