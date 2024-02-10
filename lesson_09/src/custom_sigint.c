@@ -42,6 +42,25 @@ void my_handler (int nsig) {
     printf("Попытка убийства (успешно)");
     exit(0);
     break;
+
+    
+    // сугубо технически ниже были преведены примеры приема других сигналов, предписанных стандартом
+  case SIGABRT:
+    printf("signal SIGABRT was used\n");
+    break;
+  case SIGFPE:
+    printf("signal SIGFPE was used\n");
+    break;
+  case SIGILL:
+    printf("signal SIGILL was used\n");
+    break;
+  case SIGSEGV:
+    printf("signal SIGSEGV was used\n");
+    break;
+  case SIGTERM:
+    printf("signal SIGTERM was used\n");
+    break;
+    
   default:
     printf("[JRL] Unknown signal\n");
   }
@@ -50,13 +69,28 @@ void my_handler (int nsig) {
 
 int main (void) { 
   (void)signal(SIGINT, my_handler);
-  (void)signal(SIGQUIT, my_handler);
-  
+  p = signal(SIGQUIT, my_handler);
   (void) signal(SIGCHLD, my_handler);
   //! Ну тут просто обработчик встроенный, делать нечего
   // (void)signal(SIGINT, SIG_IGN);
 
   (void) signal(SIGKILL, my_handler);
+
+
+  /* Касаемо вызовов ниже
+   * "The ISO C standard only requires the signal names \
+   SIGABRT, SIGFPE, SIGILL, SIGINT,			\
+   SIGSEGV, and SIGTERM to be defined"
+   *
+   * Источник: https://pubs.opengroup.org/onlinepubs/009695399/basedefs/signal.h.html
+   * Источник: https://pubs.opengroup.org/onlinepubs/009695399/help/codes.html#CX
+   */  
+  (void) signal(SIGABRT, my_handler);
+  (void) signal(SIGFPE, my_handler);
+  (void) signal(SIGILL, my_handler);
+  (void) signal(SIGSEGV, my_handler);
+  (void) signal(SIGTERM, my_handler);
+
   while(1);
   return 0;
 }
