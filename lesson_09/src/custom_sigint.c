@@ -38,6 +38,10 @@ void my_handler (int nsig) {
       }
     }
     break;
+  case SIGKILL: // \TODO Разобрать как сделать реакцию на этот сигнал
+    printf("Попытка убийства (успешно)");
+    exit(0);
+    break;
   default:
     printf("[JRL] Unknown signal\n");
   }
@@ -52,6 +56,7 @@ int main (void) {
   //! Ну тут просто обработчик встроенный, делать нечего
   // (void)signal(SIGINT, SIG_IGN);
 
+  (void) signal(SIGKILL, my_handler);
   while(1);
   return 0;
 }
