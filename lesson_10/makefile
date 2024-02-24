@@ -22,13 +22,14 @@ BUILD_PATH=build
 
 ##########
 
-CFILES=main.c\
-	custom_sigint.c\
-	doubt_but_ok.c\
-	ignore_sigint.c\
-	restore_sigint.c\
-	sample.c\
-	sigchld.c 
+CFILES=tcp_client.c \
+	udgram_client.c \
+	udp_client.c \
+	udp_server_rw.c \
+	tcp_server.c \
+	udgram_server.c \
+	udp_server.c
+
 
 CSRC=$(addprefix $(SRC_PATH)/,$(CFILES))
 
